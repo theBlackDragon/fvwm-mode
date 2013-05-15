@@ -23,79 +23,7 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program; if not, write to the Free Software
 ;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
-;; 
-;;; Change Log:
-;; 1.6.3 (19 Mar 2012):
-;;  - use define-derived-mode. This might break Xemacs compatibility.
-;; 1.6.2 (29 Oct 2010):
-;;  - added highlighting for menu icon definitions
-;;  - fixed an issue preventing fvwm-mode from loading in XEmacs
-;;  - cleaned up the keyword lists used for highlighting and completion
-;;  - added new keywords introduced in Fvwm 2.5.20 until 2.5.27 (keywords obsoleted in 2.5.24 not removed yet)
-;; 1.6.1 (18 Aug 2007):
-;;  - added fvwm-execute-buffer (C-c e b)
-;; 1.6.0 (29 Dec 2006):
-;;  - fixed a font-lock issue with colours inside comments, thanks to Rebecca on the Fvwm Forums for pointing this out.
-;;  - now using pcomplete for completion resulting in much faster completion, especially on GNU Emacs < 22,
-;;    XEmacs users however will still need to deal with the older completion algorithm, which is quite a bit slower than pcomplete (unless they somehow install pcomplete of course)
-;;  - started off writing an indentation function, _very_ basic and buggy atm (and turned off by default).
-;;  - improved 'self-documentedness' of this mode.
-;;  - added new keywords introduced in Fvwm 2.5.17
-;;  - now also hilights colour names  from RGB.txt in Colorsets
-;;  - commented out some superfluous colour definitions
-;; 1.5.2:
-;;  - implemented the timestamp function in a more intelligent way, it'll now work each time you save a changed file, and not only when you exit emacs with an unsaved file open.
-;;  - fixed the font lock to not hilight end of line comments as those are not supported by Fvwm even though the effect makes it appear it does in a lot of cases.
-;; 1.5.1:
-;;  - fixed a typo in fvwm-script-insert-skeleton.
-;;  - added keywords
-;; 1.5.0 (15 Sep 2005):
-;;  - added menus for the most common tasks (which is all of them at the moment).
-;;  - added completion of fvwm keywords (M-Tab).
-;;  - fixed the colouring of start of line comments containg colour definitions.
-;;  - insert-last-modified-time now only gets executed when the buffer has actually been changed.
-;;  - fixed fvwm-execute-region now also works in XEmacs.
-;;  - font-lock is now case insensitive by default, you can change this behaviour by changing the value of the fvwm-keywords-ignore-case variable.
-;;  - fixed the limited length of fvwm-execute-region
-;;  - added the possibility to insert the skeleton of an FvwmScript, you can access it either from the  menu or run it with fvwm-script-insert-skeleton.
-;; 1.4.1:
-;;  - fixed a bug in fvwm-script-insert-widget which caused the inserted widget to always be numbered 1.
-;; 1.4.0:
-;;  - added some typo fixes and keywords with different casing from Hun.
-;;  - added a function that inserts the time you last modified the file when you save it.
-;;  - fixed the fact that colour codes were no longer coloured, but seen as comments
-;;  - added hilighting of "menu shortcuts" (the &x things inside your menus, if you use them of course)
-;;  - added functionality to execute Fvwm commands (C-c e c) or regions from config files (C-c e r) from within emacs, you need to have the FvwmCommand module running for this to work.
-;;  - added the option to execute files containing Fvwm commands through the Fvwm 'Read' command (C-c e f)
-;;  - added a function to insert the skeleton of an FvwmScript widget definition C-c i w), thanks to Hun for the idea.
-;; 1.3.0 (26 Jul 2005):
-;;  - added quite some keywords provided by Hun
-;;  - added hilighting of module configuration lines (eg: "*FvwmButtons: Rows 2")
-;;  - added a function to insert an FvwmButtons skeleton (C-c i b)
-;; 1.2.2:
-;;  - fixed yet another bug with the syntax hilighting: forgot the t argument to regexp-opt on a couple of occasions
-;;  - added the Test function to the appropriate list (fvwm-functions)
-;; 1.2.1:
-;;  - fixed a bug where Emacs would colour keywords that were part of a normal string.
-;; 1.2.0:
-;;  - fixed a color code colouring issue when a colour code appeared at the end of a line
-;;  - fixed the bug where comments wouldn't be coloured when there appeared double quotes in the text to comment.
-;;  - made sure text between single quotes is also treated as text by fvwm-mode
-;; 1.1.0 (22 Jul 2005):
-;;  - fixed the syntax hilighting, it's now easier to add new keywords as you don't have to rebuild the optimized regular expression yourself.
-;;  - added functions to insert skeletons for Fvwm menus (C-c i m) and functions (C-c i f).
-;;  - added a workaround to keep everything working in emacsen < 22, as there seems to be a limit on the size of the datat regexp-opt can cope with.
-;;  - added a require font-lock as otherwise some faces might not be defined on startup, causing an ugly crash on init.
-;; 1.0.0 (18 Jul 2005):
-;;  - initial release
-;;  - only does syntax hilighting
-;; 
-;; TODO:
-;;
-;; * move some keywords around and add 'new' ones
-;; * fix the colouring to be usable with color-theme
-;; * hilight user defined functions
-;;
+;;  
 ;;; Install:
 ;; Put this file in your Emacs Lisp load-path and add
 ;; (require 'fvwm-mode)
@@ -629,7 +557,7 @@ NAME is used as the menu name."
 	 " + " _)))
 
 (defun fvwm-insert-buttons (name rows columns geometry)
-  "Insert a skeleton for an FvwmButtons and adds it to your StartFunction (if possible).
+  "Insert a skeleton for an FvwmButtons and add it to your StartFunction (if possible).
 Pressing enter at any prompt skips that option and doesn't
 include it in the skeleton. NAME is the FvwmButtons alias name,
 ROWS the number or rows, COLUMNS the number of columns and

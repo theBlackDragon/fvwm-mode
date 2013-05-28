@@ -1,6 +1,6 @@
 ;;; fvwm-mode.el --- major mode for editing Fvwm configuration files
 ;;
-;; Copyright (C) 2005-2012 Bert Geens
+;; Copyright (C) 2005-2013 Bert Geens
 ;;
 ;; Author: Bert Geens <bert@lair.be>
 ;; Maintainer: Bert Geens <bert@lair.be>
@@ -612,7 +612,7 @@ number one higher than the current highest widget number."
 	      (progn
 		(setq widget-number temp-widget-number)
 		(forward-word 1))))
-	(setq number (+ (string-to-int widget-number) 1))
+	(setq number (+ (string-to-number widget-number) 1))
 	(goto-char working-point-position)))
   (skeleton-insert
    '(nil "Widget " (number-to-string number) "\n"
@@ -665,7 +665,7 @@ number one higher than the current highest widget number."
           (message "Generating list of completions...")
           (if (and (not (featurep 'xemacs)) (> emacs-major-version 21))
               (progn
-                (setq fvwm-keywords-map (makehash))
+                (setq fvwm-keywords-map (make-hash-table))
                 (let ((i 0))
                   (while (< i (length fvwm-keywords-all))
                     (puthash (nth i fvwm-keywords-all) nil fvwm-keywords-map)

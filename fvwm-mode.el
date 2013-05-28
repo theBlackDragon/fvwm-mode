@@ -674,7 +674,7 @@ number one higher than the current highest widget number."
                 (setq fvwm-keywords-map (list))
                 (let ((i 0) (cur))
                   (while (< i (length fvwm-keywords-all))
-                    (mapcar (lambda (e)                                                                   ;thank you fledermaus!
+                    (mapc (lambda (e)                                                                   ;thank you fledermaus!
                               (add-to-list 'fvwm-keywords-map (cons e nil)))
                             fvwm-keywords-all)
                     (setq i (+ i 1))))))))

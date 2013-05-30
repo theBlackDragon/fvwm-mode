@@ -75,11 +75,13 @@ not set it will hilight keywords regardless the casing, this is
 the way Fvwm treats the keywords when parsing the configuration
 file.\n\nThis variable is t by default.")
 
+(defvar fvwm-preload-completions)       ;silence byte-compiler
 (if (not (featurep 'pcomplete))
     (defvar fvwm-preload-completions nil
       "If you are planning on using completion a lot it might be
       advisable to set this to t as otherwise you'll experience a
       delay when trying to use completion for the first time"))
+
 ;; -------------------------
 ;; |      Keymappings      |
 ;; -------------------------
@@ -545,7 +547,7 @@ NAME is used as the Function name."
   (interactive "sFunction name? ")
   (skeleton-insert
    '(nil "AddToFunc " name "\n"
-	 " + " _ )))
+     " + " _ )))
 
 (defun fvwm-insert-menu (name)
   "Insert a skeleton for an Fvwm Menu into the current buffer.
@@ -553,8 +555,8 @@ NAME is used as the menu name."
   (interactive "sMenu name? ")
   (skeleton-insert
    '(nil "DestroyMenu name\n"
-	 "AddToMenu name\n"
-	 " + " _)))
+     "AddToMenu name\n"
+     " + " _)))
 
 (defun fvwm-insert-buttons (name rows columns geometry)
   "Insert a skeleton for an FvwmButtons and add it to your StartFunction (if possible).
@@ -565,12 +567,12 @@ GEOMETRY sets the FvwmButtons Geometry option."
   (interactive "sFvwmButtons alias? \nsAmount of rows? \nsAmount of columns? \nsGeometry? ")
   (skeleton-insert
    '(nil "DestroyModuleConfig " name ": *\n"
-	 (if (not (string-equal rows "" ))
-             (insert (concat "*" name ": Rows " rows "\n")))
-	 (if (not (string-equal columns "" ))
-             (insert (concat "*" name ": Columns " columns "\n")))
-	 (if (not (string-equal geometry "" ))
-             (insert (concat "*" name ": Geometry " geometry "\n")))
+     (if (not (string-equal rows "" ))
+         (insert (concat "*" name ": Rows " rows "\n")))
+     (if (not (string-equal columns "" ))
+         (insert (concat "*" name ": Columns " columns "\n")))
+     (if (not (string-equal geometry "" ))
+         (insert (concat "*" name ": Geometry " geometry "\n")))
      "\n")))
 
 (defun fvwm-script-insert-skeleton (title width height font)
@@ -632,32 +634,33 @@ number one higher than the current highest widget number."
 ;; -------------------------
 ;; |      Completion       |
 ;; -------------------------
-(defun pcomplete-fvwm-setup ()
-  (setq fvwm-all-completions)
-  (if (not fvwm-all-completions)
-      (setq fvwm-all-completions (append fvwm-functions fvwm-keywords-1 fvwm-keywords-2)))
-  (set (make-local-variable 'pcomplete-parse-arguments-function)
-       'pcomplete-parse-fvwm-arguments)
-  (set (make-local-variable 'pcomplete-default-completion-function)
-       'pcomplete-fvwm-default-completion))
+(if (featurep 'pcomplete)
+    (let (fvwm-all-completions)
+      (defun pcomplete-fvwm-setup ()
+        (if (not fvwm-all-completions)
+            (setq fvwm-all-completions (append fvwm-functions fvwm-keywords-1 fvwm-keywords-2)))
+        (set (make-local-variable 'pcomplete-parse-arguments-function)
+             'pcomplete-parse-fvwm-arguments)
+        (set (make-local-variable 'pcomplete-default-completion-function)
+             'pcomplete-fvwm-default-completion))
 
-(defun pcomplete-fvwm-default-completion ()
-   (pcomplete-here fvwm-all-completions))
+      (defun pcomplete-fvwm-default-completion ()
+        (pcomplete-here fvwm-all-completions))
 
-(defun pcomplete-parse-fvwm-arguments ()
-  (save-excursion
-    (let* ((thispt (point))
-	   (pt (search-backward-regexp "[ \t\n]" nil t))
-	   (ptt (if pt (+ pt 1) thispt)))
-      (list
-       (list "dummy" (buffer-substring-no-properties ptt thispt))
-       (point-min) ptt))))
+      (defun pcomplete-parse-fvwm-arguments ()
+        (save-excursion
+          (let* ((thispt (point))
+                 (pt (search-backward-regexp "[ \t\n]" nil t))
+                 (ptt (if pt (+ pt 1) thispt)))
+            (list
+             (list "dummy" (buffer-substring-no-properties ptt thispt))
+             (point-min) ptt)))))
+    
 
-;; Still need the following two functions for XEmacs which doesn't
-;; support pcomplete
-(if (not (featurep 'pcomplete))
+    ;; Still need the following two functions for XEmacs which doesn't
+    ;; support pcomplete
     (progn
-      (setq fvwm-keywords-map nil)
+      (defvar fvwm-keywords-map)
 
       (defun fvwm-generate-hashmap ()
         "Generate the alist or hash-map needed by fvwm-complete-keyword."
@@ -669,15 +672,15 @@ number one higher than the current highest widget number."
                 (let ((i 0))
                   (while (< i (length fvwm-keywords-all))
                     (puthash (nth i fvwm-keywords-all) nil fvwm-keywords-map)
-                    (setq i (+ i 1)))))
+                    (incf i))))
               (progn
                 (setq fvwm-keywords-map (list))
                 (let ((i 0) (cur))
                   (while (< i (length fvwm-keywords-all))
-                    (mapc (lambda (e)                                                                   ;thank you fledermaus!
+                    (mapc (lambda (e)
                               (add-to-list 'fvwm-keywords-map (cons e nil)))
                             fvwm-keywords-all)
-                    (setq i (+ i 1))))))))
+                    (incf i)))))))
 
       (defun fvwm-complete-keyword ()
         "Complete the Fvwm keywords before point by comparing it
@@ -685,7 +688,9 @@ against the known Fvwm keywords."
         ;; This function is largely based on lisp-complete-symbol from GNU Emacs' lisp.el
         (interactive)
         
-        (if (not fvwm-keywords-map)
+        (if (and
+             (not fvwm-keywords-map)
+             (fboundp 'fvwm-generate-hashmap)) ;should always be defined when we get here; silence byte compiler with explicit check
             (fvwm-generate-hashmap))
         
         (let ((window (get-buffer-window "*Completions*")))
@@ -850,10 +855,11 @@ Entry to this mode calls the value of `fvwm-mode-hook'"
 
   ;; Create the completions database when the mode is first loaded on XEmacs
   ;; (or any other Emacs not providing pcomplete)
-  (if (not (featurep 'pcomplete))
-      (if fvwm-preload-completions
-          (fvwm-generate-hashmap))
-    (pcomplete-fvwm-setup)))
+  (when (and
+         (not (featurep 'pcomplete))
+         (fboundp 'fvwm-generate-hashmap)
+         fvwm-preload-completions)
+    (fvwm-generate-hashmap)))
 
 (provide 'fvwm-mode)
 

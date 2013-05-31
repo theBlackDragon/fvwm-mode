@@ -121,6 +121,17 @@ file.\n\nThis variable is t by default.")
      ["Execute region" fvwm-execute-region t])))
 
 ;; -------------------------
+;; |     Syntax table      |
+;; -------------------------
+(defvar fvwm-syntax-table
+  (let ((table (copy-syntax-table)))
+    ;; Treat double quotes as whitespace as otherwise it messes with
+    ;; comment colouring.
+    (modify-syntax-entry ?\" "_"  table)
+    table)
+  "Fvwm mode syntax table")
+
+;; -------------------------
 ;; |     Define faces      |
 ;; -------------------------
 (defvar fvwm-special-face 'fvwm-special-face "Special face for `fvwm-mode'.")
@@ -844,6 +855,7 @@ to actually work, see man FvwmCommand for details on that."
 Commands:
 \\{fvwm-mode-map}
 Entry to this mode calls the value of `fvwm-mode-hook'"
+  (set-syntax-table fvwm-syntax-table)
   (setq comment-start "#")
 
   (set (make-local-variable 'font-lock-defaults)

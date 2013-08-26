@@ -814,21 +814,24 @@ detailed instructions."
       (shell-command (concat fvwm-fvwmcommand-path " '" command "'") "*fvwm-output*")
     (shell-command (concat fvwm-fvwmcommand-path " '" command "'") "*fvwm-output*" "*fvwm-error*")))
 
-(defun fvwm-execute-region ()
+(defun fvwm-execute-region (&optional beg end)
   "Execute the Fvwm commands in the selected region using FvwmCommand.
 FvwmCommandS needs to be running, see man FvwmCommand for
 detailed instructions."
   (interactive)
-  (let ((end (region-end)) (beg (region-beginning)))
+  ; FIXME still breaks on statements spread over multiple lines using \
+  (save-excursion
+    (unless beg (setq beg (region-beginning)))
+    (unless end (setq end (region-end)))
     (goto-char beg)
-    (while (< beg end)
-      (progn
-	(beginning-of-line)
-	(setq beg (point))
-	(end-of-line)
-	(fvwm-execute-command (buffer-substring beg (point)))
-	(line-move 1)))
-    (line-move -1)))
+    (beginning-of-line)
+    (setq beg (point))
+    (end-of-line)
+    (fvwm-execute-command (buffer-substring beg (point)))
+    (line-move 1)
+    (if (< (line-number-at-pos beg)
+           (line-number-at-pos end))
+        (fvwm-execute-region (point) end))))
 
 (defun fvwm-execute-buffer ()
   "Execute the current buffer using FvwmCommand.

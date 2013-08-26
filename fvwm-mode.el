@@ -814,24 +814,35 @@ detailed instructions."
       (shell-command (concat fvwm-fvwmcommand-path " '" command "'") "*fvwm-output*")
     (shell-command (concat fvwm-fvwmcommand-path " '" command "'") "*fvwm-output*" "*fvwm-error*")))
 
-(defun fvwm-execute-region (&optional beg end)
+(defun fvwm-execute-region (&optional beg end partial-exp)
   "Execute the Fvwm commands in the selected region using FvwmCommand.
 FvwmCommandS needs to be running, see man FvwmCommand for
 detailed instructions."
   (interactive)
-  ; FIXME still breaks on statements spread over multiple lines using \
   (save-excursion
     (unless beg (setq beg (region-beginning)))
     (unless end (setq end (region-end)))
     (goto-char beg)
-    (beginning-of-line)
+    (back-to-indentation)
     (setq beg (point))
     (end-of-line)
-    (fvwm-execute-command (buffer-substring beg (point)))
-    (line-move 1)
-    (if (< (line-number-at-pos beg)
-           (line-number-at-pos end))
-        (fvwm-execute-region (point) end))))
+    (if (string= "\\" (buffer-substring (- (point) 1) (point)))
+        (let ((part (buffer-substring beg (- (point) 1))))
+          (when partial-exp
+            (setq partial-exp (concat partial-exp " " part)))
+          ;; We don't check for end of region here as ending with a
+          ;; partial expression is an error. The user probably ended
+          ;; his region too soon.
+          (line-move 1)
+          (fvwm-execute-region (point) end (concat partial-exp part)))
+        (let ((expression (buffer-substring beg (point))))
+          (when partial-exp
+            (setq expression (concat partial-exp expression)))
+          (fvwm-execute-command expression)
+          (line-move 1)
+          (if (< (line-number-at-pos beg)
+                 (line-number-at-pos end))
+              (fvwm-execute-region (point) end))))))
 
 (defun fvwm-execute-buffer ()
   "Execute the current buffer using FvwmCommand.

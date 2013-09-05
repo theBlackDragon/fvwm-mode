@@ -123,7 +123,7 @@ file.\n\nThis variable is t by default.")
 ;; -------------------------
 ;; |     Syntax table      |
 ;; -------------------------
-(defvar fvwm-syntax-table
+(defvar fvwm-mode-syntax-table
   (let ((table (copy-syntax-table)))
     ;; Treat double quotes as whitespace as otherwise it messes with
     ;; comment colouring.
@@ -869,7 +869,6 @@ to actually work, see man FvwmCommand for details on that."
 Commands:
 \\{fvwm-mode-map}
 Entry to this mode calls the value of `fvwm-mode-hook'"
-  (set-syntax-table fvwm-syntax-table)
   (set (make-local-variable 'comment-start) "#")
 
   (set (make-local-variable 'font-lock-defaults)

@@ -870,7 +870,7 @@ Commands:
 \\{fvwm-mode-map}
 Entry to this mode calls the value of `fvwm-mode-hook'"
   (set-syntax-table fvwm-syntax-table)
-  (setq comment-start "#")
+  (set (make-local-variable 'comment-start) "#")
 
   (set (make-local-variable 'font-lock-defaults)
        (list 'fvwm-font-lock-keywords nil fvwm-keywords-force-case))

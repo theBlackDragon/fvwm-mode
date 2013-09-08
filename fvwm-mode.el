@@ -63,7 +63,7 @@
   "See the help for `format-time-string' for more information.")
 (defvar fvwm-last-updated-suffix "                                        #")
 
-(defvar fvwm-fvwmcommand-path "/usr/X11R6/bin/FvwmCommand"
+(defvar fvwm-fvwmcommand-path "FvwmCommand"
   "The path to the FvwmCommand executable.
 This most probably shouldn't be modified for a default Fvwm installation.")
 

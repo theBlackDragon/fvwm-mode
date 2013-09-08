@@ -826,7 +826,7 @@ detailed instructions."
     (back-to-indentation)
     (setq beg (point))
     (end-of-line)
-    (if (string= "\\" (buffer-substring (- (point) 1) (point)))
+    (if (equal ?\\ (char-before))
         (let ((part (buffer-substring beg (- (point) 1))))
           (when partial-exp
             (setq partial-exp (concat partial-exp " " part)))

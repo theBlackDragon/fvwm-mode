@@ -750,48 +750,6 @@ against the known Fvwm keywords."
                        (message "Making completion list...%s" "done")))))))))
 
 ;; -------------------------
-;; |      Indentation      |
-;; -------------------------
-(defun fvwm-enable-indentation ()
-  "Enable indentation on Fvwm configuration files.
-Indentation is off by default (Note that this feature is not in a
-usable state right now)."
-  (interactive)
-  (set (make-local-variable 'indent-line-function) 'fvwm-indent-line))
-
-(defun fvwm-disable-indentation ()
-  "Disable indentation on Fvwm configuration files, this is the default."
-  (interactive)
-  (set (make-local-variable 'indent-line-function) 'indent-to-left-margin))
-
-(defun fvwm-indent-line ()
-  "Indent the current line."
-  (interactive)
-  (let ((savep (> (current-column) (current-indentation)))
-	(indent (condition-case nil (max (fvwm-calculate-indentation) 0)
-		  (error 0))))
-    (if savep
-	(save-excursion (indent-line-to indent))
-      (indent-line-to indent))))
-
-(defun fvwm-calculate-indentation ()
-  "Return the column to which the current line should be indented."
-  (let ((current-indent) (current-line-indent) (prev-line-indent))
-    (save-excursion
-      "Save the indentation of the current line."
-      (beginning-of-line-text)
-      (setq current-line-indent (current-column))
-      (beginning-of-line-text 0)
-      (setq prev-line-indent (current-column)))
-    (save-excursion
-      (cond
-       ((= current-line-indent prev-line-indent)
-        (setq current-indent (+ prev-line-indent standard-indent)))
-       ((> prev-line-indent current-line-indent)
-	(setq current-indent (+ prev-line-indent (- (mod prev-line-indent standard-indent)))))
-       (t (setq current-indent (+ current-line-indent (- (mod current-line-indent standard-indent)) standard-indent)))))))
-
-;; -------------------------
 ;; |    Timestamp file     |
 ;; -------------------------
 (add-hook 'before-save-hook

@@ -810,9 +810,8 @@ usable state right now)."
 FvwmCommandS needs to be running, see man FvwmCommand for
 detailed instructions."
   (interactive "sCommand? ")
-  (if (featurep 'xemacs)
-      (shell-command (concat fvwm-fvwmcommand-path " '" command "'") "*fvwm-output*")
-    (shell-command (concat fvwm-fvwmcommand-path " '" command "'") "*fvwm-output*" "*fvwm-error*")))
+  (call-process-shell-command fvwm-fvwmcommand-path nil nil nil
+                              (shell-quote-argument command)))
 
 (defun fvwm-execute-region (&optional beg end partial-exp)
   "Execute the Fvwm commands in the selected region using FvwmCommand.

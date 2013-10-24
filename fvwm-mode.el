@@ -775,31 +775,17 @@ detailed instructions."
   "Execute the Fvwm commands in the selected region using FvwmCommand.
 FvwmCommandS needs to be running, see man FvwmCommand for
 detailed instructions."
-  (interactive)
+  (interactive "r")  
   (save-excursion
-    (unless beg (setq beg (region-beginning)))
-    (unless end (setq end (region-end)))
-    (goto-char beg)
-    (back-to-indentation)
-    (setq beg (point))
-    (end-of-line)
-    (if (equal ?\\ (char-before))
-        (let ((part (buffer-substring beg (- (point) 1))))
-          (when partial-exp
-            (setq partial-exp (concat partial-exp " " part)))
-          ;; We don't check for end of region here as ending with a
-          ;; partial expression is an error. The user probably ended
-          ;; his region too soon.
-          (line-move 1)
-          (fvwm-execute-region (point) end (concat partial-exp part)))
-        (let ((expression (buffer-substring beg (point))))
-          (when partial-exp
-            (setq expression (concat partial-exp expression)))
-          (fvwm-execute-command expression)
-          (line-move 1)
-          (if (< (line-number-at-pos beg)
-                 (line-number-at-pos end))
-              (fvwm-execute-region (point) end))))))
+    (let ((beg-orig (region-beginning))
+          (end-orig (region-end)))
+      (let ((beg (progn (goto-char beg-orig)
+                        (back-to-indentation)
+                        (point)))
+            (end (progn (goto-char end-orig)
+                        (end-of-line)
+                        (point))))
+        (call-process-region beg end fvwm-fvwmcommand-path nil nil nil "-c")))))
 
 (defun fvwm-execute-buffer ()
   "Execute the current buffer using FvwmCommand.
@@ -807,8 +793,9 @@ FvwmCommand needs to be running, see 'man FvwmCommand' for
 detailed instructions."
   (interactive)
   (save-excursion
-    (mark-whole-buffer)
-    (fvwm-execute-region)))
+    (call-process-region (buffer-end -1)
+                         (buffer-end 1)
+                         fvwm-fvwmcommand-path nil nil nil "-c")))
 
 (defun fvwm-execute-file ()
   "Execute the file containing Fvwm commands as the 'Read' Fvwm

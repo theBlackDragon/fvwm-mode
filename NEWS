@@ -1,5 +1,18 @@
 fvwm-mode NEWS
 
+* 1.6.4 (under development) 
+** fixed fvwm-execute-region to not execute one line too much 
+** updated fvwm-execute-region to correctly handle statements 
+   spread over multiple lines
+** fixed fvwm-execute-region to correctly handle buffers with a blank
+   line at the start (Kevin Ryde)
+** turned comment-start into a buffer local variable (Kevin Ryde)
+** renamed fvwm-syntax-table to fvwm-mode-syntax-table so it's
+   automatically used by define-derived-mode (thanks to Kevin Ryde
+   for pointing this out)
+** removed absolute default path to FvwmCommand (thanks to Kevin Ryde)
+** removed incomplete indentation code
+
 * 1.6.3 (19 Mar 2012)
 ** use define-derived-mode. This might break Xemacs compatibility.
 

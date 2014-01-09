@@ -1,11 +1,11 @@
 ;;; fvwm-mode.el --- major mode for editing Fvwm configuration files
 ;;
-;; Copyright (C) 2005-2013 Bert Geens
+;; Copyright (C) 2005-2014 Bert Geens
 ;;
 ;; Author: Bert Geens <bert@lair.be>
 ;; Maintainer: Bert Geens <bert@lair.be>
 ;; Created: 15 Jul 2005
-;; Version: 1.6.3
+;; Version: 1.6.4
 ;; Keywords: files
 ;;
 ;; This file is not part of GNU Emacs.
@@ -49,7 +49,7 @@
 ;; 
 ;;
 ;;; Code:
-(defconst fvwm-mode-version "1.6.3"
+(defconst fvwm-mode-version "1.6.4"
   "Version number for this release of `fvwm-mode'.")
 
 (defvar fvwm-mode-hook nil

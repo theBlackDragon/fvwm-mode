@@ -1,6 +1,6 @@
 fvwm-mode NEWS
 
-* 1.6.4 (under development) 
+* 1.6.4 (9 Jan 2014) 
 ** fixed fvwm-execute-region to not execute one line too much 
 ** updated fvwm-execute-region to correctly handle statements 
    spread over multiple lines

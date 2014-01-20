@@ -487,6 +487,9 @@ file.\n\nThis variable is t by default.")
    '("*\\([a-zA-Z]*\\):" 1 fvwm-special-face) ;hilight module names
    '("\\($\\[[^$]*\\]\\)" 1 font-lock-variable-name-face) ;hilight Fvwm variables
 
+   ; application name highlighting in Style-definitions
+   '("^Style \\([^ ]*\\) .*" 1 font-lock-string-face) 
+
    '(".*+.*\\(\\%..*\\%\\).*\n" 1 fvwm-special-face)        ;hilight Menu icon definitions (%icon.xpm%)
    '(".*+.*\\(\\@..*\\@\\).*\n" 1 fvwm-special-face)        ;hilight Menu icon definitions (@icon.xpm@)
    '(".*+.*\\(\\*..*\\*\\).*\n" 1 fvwm-special-face)        ;hilight Menu icon definitions (*icon.xpm*)

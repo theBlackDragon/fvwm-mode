@@ -835,7 +835,7 @@ Entry to this mode calls the value of `fvwm-mode-hook'"
     (fvwm-generate-hashmap)))
 
 ;;;###autoload
-(dolist (pattern '("\\.fvwm\\'" "\\`ConfigFvwm" "\\`FvwmScript-" "\\`FvwmForm-" "\\`FvwmTabs-"))
+(dolist (pattern '("\\.fvwm\\'" "/ConfigFvwm" "/FvwmScript-" "/FvwmForm-" "/FvwmTabs-"))
   (add-to-list 'auto-mode-alist (cons pattern 'fvwm-mode)))
 
 (provide 'fvwm-mode)

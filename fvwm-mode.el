@@ -810,6 +810,7 @@ to actually work, see man FvwmCommand for details on that."
 ;; -------------------------
 ;; |    Entry function     |
 ;; -------------------------
+;;;###autoload
 (define-derived-mode fvwm-mode prog-mode "Fvwm"
   "Major mode for editing Fvwm configuration files.
 
@@ -832,6 +833,10 @@ Entry to this mode calls the value of `fvwm-mode-hook'"
          (fboundp 'fvwm-generate-hashmap)
          fvwm-preload-completions)
     (fvwm-generate-hashmap)))
+
+;;;###autoload
+(dolist (pattern '("\\.fvwm\\'" "\\`ConfigFvwm" "\\`FvwmScript-" "\\`FvwmForm-" "\\`FvwmTabs-"))
+  (add-to-list 'auto-mode-alist (cons pattern 'fvwm-mode)))
 
 (provide 'fvwm-mode)
 

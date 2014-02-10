@@ -275,7 +275,7 @@ file.\n\nThis variable is t by default.")
        "FVWM" "FirmBorder" "Fixed" "FixedPosition" "FixedPPosition" "FixedSize" "Flat" "FlickeringMoveWorkaround"
        "FlickeringQtDialogsWorkaround" "FocusColorset" "FocusButton" "FocusFollowsMouse" "FollowsFocus"
        "FollowsMouse" "Fore" "Font" "ForeColor" "ForeGround" "Format" "Frame" "Function" "Fvwm"
-       "FvwmBorder" "FvwmButtons" "FeedBack" "fg" "fgsh" "fgAlpha"
+       "FvwmBorder" "FeedBack" "fg" "fgsh" "fgAlpha"
 
        "GNOMEIgnoreHints" "GNOMEUseHints" "Geometry" "GrabFocus" "GrabFocusOff" "GrabFocusTransient"
        "GrabFocusTransientOff" "Greyed" "GreyedColorset"

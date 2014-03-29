@@ -134,20 +134,19 @@ file.\n\nThis variable is t by default.")
 ;; -------------------------
 ;; |     Define faces      |
 ;; -------------------------
-(defvar fvwm-special-face 'fvwm-special-face "Special face for `fvwm-mode'.")
 (defface fvwm-special-face
-  '((((class grayscale) (background light))
+  '((default . (:bold t :italic t))
+    (((class grayscale) (background light)) .
      (foreground "DimGray" :bold t :italic t))
-    (((class grayscale) (background dark))
+    (((class grayscale) (background dark)) .
      (foreround "LightGray":bold t :italic t))
-    (((class color) (background light)) (:foreground "SteelBlue"))
-    (((class color) (background dark)) (:foreground "bisque1"))
+    (((class color) (background light)) . (:foreground "SteelBlue"))
+    (((class color) (background dark)) . (:foreground "bisque1"))
     ;;(((class color) (background dark)) (:foreground "DarkOrange"))
-    (t (:bold t :italic t)))
+    (t . (:bold t :italic t)))
   "Fvwm Mode face used to highlight special keywords."
   :group 'fvwm-faces)
 
-;; (defvar fvwm-shortcut-key-face 'fvwm-shortcut-key-face "Special face for Fvwm menu shortcuts")
 ;; (defface fvwm-shortcut-key-face
 ;;   '((((class grayscale) (background light))
 ;;      (foreground "DimGray" :bold t :italic t))
@@ -159,7 +158,6 @@ file.\n\nThis variable is t by default.")
 ;;   "Fvwm Mode mode face used to highlight menu shortcuts."
 ;;   :group 'fvwm-faces)
 
-(defvar fvwm-rgb-value-face 'fvwm-rgb-value-face "RGB value face for `fvwm-mode'.")
 (defface fvwm-rgb-value-face
   '((((class grayscale) (background light))
      (foreground "DimGray" :bold t :italic t))
@@ -457,51 +455,51 @@ file.\n\nThis variable is t by default.")
 (defconst fvwm-font-lock-keywords-1
   (list
    '("^[ ]*\\(#.*\\)" 1 font-lock-comment-face) ;hilight comments
-   '("\\(#[0-9a-fA-F]\\{12\\}\\)[ ,\n]" . fvwm-rgb-value-face) ;hilight RGB values, never seen this before, but it was in fvwm.vim...
-   '("\\(#[0-9a-fA-F]\\{9\\}\\)[ ,\n]" . fvwm-rgb-value-face)	;hilight RGB values, never seen this before, but it was in fvwm.vim...
-   '("\\(#[0-9a-fA-F]\\{6\\}\\)[ ,\n]" . fvwm-rgb-value-face)	;hilight RGB values
-   '("\\(#[0-9a-fA-F]\\{3\\}\\)[ ,\n]" . fvwm-rgb-value-face)	;hilight RGB values
+   '("\\(#[0-9a-fA-F]\\{12\\}\\)[ ,\n]" . 'fvwm-rgb-value-face) ;hilight RGB values, never seen this before, but it was in fvwm.vim...
+   '("\\(#[0-9a-fA-F]\\{9\\}\\)[ ,\n]" . 'fvwm-rgb-value-face)	;hilight RGB values, never seen this before, but it was in fvwm.vim...
+   '("\\(#[0-9a-fA-F]\\{6\\}\\)[ ,\n]" . 'fvwm-rgb-value-face)	;hilight RGB values
+   '("\\(#[0-9a-fA-F]\\{3\\}\\)[ ,\n]" . 'fvwm-rgb-value-face)	;hilight RGB values
 
    ; hilight Colorset keyword followed by a colour name from rgb.txt, see man FvwmTheme for details
-   '(".*[Cc]olorset.*[ ]fg[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Ff]ore[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Ff]oreground[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ]bg[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Bb]ack[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Bb]ackground[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ]sh[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Ss]hade[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Ss]hadow[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ]hi[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Hh]ilite[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Hh]ilight[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ]fgsh[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Tt]int[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
-   '(".*[Cc]olorset.*[ ][Ii]con[Tt]int[ ]\\([a-z\"0-9]*\\).*" 1 fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ]fg[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Ff]ore[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Ff]oreground[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ]bg[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Bb]ack[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Bb]ackground[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ]sh[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Ss]hade[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Ss]hadow[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ]hi[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Hh]ilite[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Hh]ilight[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ]fgsh[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Tt]int[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
+   '(".*[Cc]olorset.*[ ][Ii]con[Tt]int[ ]\\([a-z\"0-9]*\\).*" 1 'fvwm-rgb-value-face)
 
-   '("\\(rgb:[0-9a-fA-F]\\{1,4\\}\/[0-9a-fA-F]\\{1,4\\}\/[0-9a-fA-F]\\{1,4\\}\\)" 1 fvwm-rgb-value-face) ;hilight RGB values
-   '("\\(&.\\)" 1 fvwm-shortcut-key-face)  ;Fvwm menu shortcutkey
-   '("\"[^\"]*\"" . font-lock-string-face) ;hilight doublequoted strings
-   '("\'[^\']*\'" . font-lock-string-face) ;hilight singlequoted strings
-   '("\`[^\`]*\`" . font-lock-string-face) ;hilight backticked strings
-   '("*\\([a-zA-Z]*\\):" 1 fvwm-special-face) ;hilight module names
-   '("\\($\\[[^$]*\\]\\)" 1 font-lock-variable-name-face) ;hilight Fvwm variables
+   '("\\(rgb:[0-9a-fA-F]\\{1,4\\}\/[0-9a-fA-F]\\{1,4\\}\/[0-9a-fA-F]\\{1,4\\}\\)" 1 'fvwm-rgb-value-face) ;highlight RGB values
+   '("\\(&.\\)" 1 'fvwm-shortcut-key-face)  ;Fvwm menu shortcutkey
+   '("\"[^\"]*\"" . 'font-lock-string-face) ;hilight doublequoted strings
+   '("\'[^\']*\'" . 'font-lock-string-face) ;hilight singlequoted strings
+   '("\`[^\`]*\`" . 'font-lock-string-face) ;hilight backticked strings
+   '("*\\([a-zA-Z]*\\):" 1 'fvwm-special-face) ;hilight module names
+   '("\\($\\[[^$]*\\]\\)" 1 'font-lock-variable-name-face) ;hilight Fvwm variables
 
    ; application name highlighting in Style-definitions
-   '("^Style \\([^ ]*\\) .*" 1 font-lock-string-face) 
+   '("^Style \\([^ ]*\\) .*" 1 'font-lock-string-face) 
 
-   '(".*+.*\\(\\%..*\\%\\).*\n" 1 fvwm-special-face)        ;hilight Menu icon definitions (%icon.xpm%)
-   '(".*+.*\\(\\@..*\\@\\).*\n" 1 fvwm-special-face)        ;hilight Menu icon definitions (@icon.xpm@)
-   '(".*+.*\\(\\*..*\\*\\).*\n" 1 fvwm-special-face)        ;hilight Menu icon definitions (*icon.xpm*)
-   '(".*+.*\\(\\^..*\\^\\).*\n" 1 fvwm-special-face)        ;hilight Menu icon definitions (^icon.xpm^)
-   (cons (concat "\\<" (regexp-opt fvwm-functions t) "\\>") font-lock-function-name-face) ;Fvwm functions to hilight
-   (cons fvwm-keywords font-lock-keyword-face) ;Hilight Fvwm functions
-   (cons fvwm-fp-focusstyles font-lock-keyword-face) ;Fvwm FP Style keywords to hilight
-   (cons fvwm-stylefocus-focusstyles font-lock-keyword-face);Fvwm StyleFocus keywords
-   (cons ewmh-keywords font-lock-keyword-face) ;EWMH keywords
-   (cons fvwm-conditionnames font-lock-keyword-face) ;Conditionnames to hilight
-   (cons fvwm-contextnames font-lock-constant-face) ;Fvwm context keywords
-   (cons fvwm-special fvwm-special-face)) ;Fvwm builtin modules and special functions
+   '(".*+.*\\(\\%..*\\%\\).*\n" 1 'fvwm-special-face)        ;hilight Menu icon definitions (%icon.xpm%)
+   '(".*+.*\\(\\@..*\\@\\).*\n" 1 'fvwm-special-face)        ;hilight Menu icon definitions (@icon.xpm@)
+   '(".*+.*\\(\\*..*\\*\\).*\n" 1 'fvwm-special-face)        ;hilight Menu icon definitions (*icon.xpm*)
+   '(".*+.*\\(\\^..*\\^\\).*\n" 1 'fvwm-special-face)        ;hilight Menu icon definitions (^icon.xpm^)
+   (cons (concat "\\<" (regexp-opt fvwm-functions t) "\\>") `'font-lock-function-name-face) ;Fvwm functions to hilight
+   (cons fvwm-keywords `'font-lock-keyword-face) ;Hilight Fvwm functions
+   (cons fvwm-fp-focusstyles `'font-lock-keyword-face) ;Fvwm FP Style keywords to hilight
+   (cons fvwm-stylefocus-focusstyles `'font-lock-keyword-face);Fvwm StyleFocus keywords
+   (cons ewmh-keywords `'font-lock-keyword-face) ;EWMH keywords
+   (cons fvwm-conditionnames `'font-lock-keyword-face) ;Conditionnames to hilight
+   (cons fvwm-contextnames `'font-lock-constant-face) ;Fvwm context keywords
+   (cons fvwm-special `'fvwm-special-face)) ;Fvwm builtin modules and special functions
   "Fvwm keywords to highlight.")
 ;; 
 ;; FvwmScript keywords
@@ -538,15 +536,15 @@ file.\n\nThis variable is t by default.")
 (defconst fvwm-font-lock-keywords-2
   (append fvwm-font-lock-keywords-1
 	  (list
-	   '("\\(rgb:..\/..\/..\\)" 1 fvwm-rgb-value-face)
-	   '("\\($[-_a-zA-Z0-9]*\\)" 1 font-lock-variable-name-face)
-	   (cons fvwmscript-instructions font-lock-function-name-face) ;instructions
-	   (cons fvwmscript-functions font-lock-function-name-face) ;functions
-	   '("\\<\\(Begin\\|Case\\|Do\\|E\\(?:lse\\|nd\\)\\|I\\(?:f\\|nit\\)\\|Main\\|P\\(?:eriodicTasks\\|roperty\\)\\|QuitFunc\\|Set\\|Then\\|Widget\\)\\>" . font-lock-keyword-face)
-	   (cons fvwmscript-properties font-lock-keyword-face) ;properties
-	   (cons fvwmscript-flagsopt font-lock-function-name-face) ;flagsOpt
-	   (cons fvwmscript-keywords font-lock-keyword-face)	  ;keywords
-	   (cons fvwmscript-widgets font-lock-keyword-face)))	  ;widgets
+	   '("\\(rgb:..\/..\/..\\)" 1 'fvwm-rgb-value-face)
+	   '("\\($[-_a-zA-Z0-9]*\\)" 1 'font-lock-variable-name-face)
+	   (cons fvwmscript-instructions `'font-lock-function-name-face) ;instructions
+	   (cons fvwmscript-functions `'font-lock-function-name-face) ;functions
+	   '("\\<\\(Begin\\|Case\\|Do\\|E\\(?:lse\\|nd\\)\\|I\\(?:f\\|nit\\)\\|Main\\|P\\(?:eriodicTasks\\|roperty\\)\\|QuitFunc\\|Set\\|Then\\|Widget\\)\\>" . 'font-lock-keyword-face)
+	   (cons fvwmscript-properties `'font-lock-keyword-face) ;properties
+	   (cons fvwmscript-flagsopt `'font-lock-function-name-face) ;flagsOpt
+	   (cons fvwmscript-keywords `'font-lock-keyword-face)	  ;keywords
+	   (cons fvwmscript-widgets `'font-lock-keyword-face)))	  ;widgets
 	  "FvwmScript keywords to hilight.")
 
 (defvar fvwm-font-lock-keywords fvwm-font-lock-keywords-2
@@ -817,11 +815,12 @@ to actually work, see man FvwmCommand for details on that."
 Commands:
 \\{fvwm-mode-map}
 Entry to this mode calls the value of `fvwm-mode-hook'"
+  (kill-all-local-variables)
   (set (make-local-variable 'comment-start) "#")
 
   (set (make-local-variable 'font-lock-defaults)
-       (list 'fvwm-font-lock-keywords nil fvwm-keywords-force-case))
-
+       '(fvwm-font-lock-keywords nil fvwm-keywords-force-case))
+  
   ;; XEmacs needs this, otherwise the menu isn't displayed.
   (if (featurep 'xemacs)
       (easy-menu-add fvwm-menu fvwm-mode-map))

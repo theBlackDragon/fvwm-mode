@@ -1,10 +1,11 @@
 fvwm-mode NEWS
 
 * dev
-** Highlight the application-name in Style definitions using the string
+** highlight the application-name in Style definitions using the string
    face so it looks similar to old-style double-quoted application-names.
 ** added autoloads for common naming schemes for Fvwm related files
    (Jonathan Kotta)
+** no longer using defvar for face definitions.
 
 * 1.6.4 (9 Jan 2014) 
 ** fixed fvwm-execute-region to not execute one line too much 

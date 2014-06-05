@@ -753,13 +753,17 @@ against the known Fvwm keywords."
 ;; -------------------------
 ;; |    Timestamp file     |
 ;; -------------------------
-(add-hook 'before-save-hook
-	  '(lambda ()
-            (save-excursion
-              (goto-char (point-min))
-              (if (buffer-modified-p)
-                  (if (re-search-forward (concat "^" fvwm-last-updated-prefix ".*") nil t)
-                      (replace-match (concat fvwm-last-updated-prefix (format-time-string fvwm-time-format-string) fvwm-last-updated-suffix)))))))
+(defun fvwm-timestamp-file ()
+  (save-excursion
+    (goto-char (point-min))
+    (if (and (buffer-modified-p)
+             (re-search-forward (concat "^" fvwm-last-updated-prefix ".*")
+                                nil t))
+        (replace-match (concat fvwm-last-updated-prefix
+                               (format-time-string fvwm-time-format-string)
+                               fvwm-last-updated-suffix)))))
+
+(add-hook 'before-save-hook 'fvwm-timestamp-file)
 
 ;; -------------------------
 ;; |   Run Fvwm commands   |

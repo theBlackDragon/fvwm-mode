@@ -58,6 +58,10 @@
 ;; -------------------------
 ;; |       Variables       |
 ;; -------------------------
+(defvar fvwm-enable-last-updated-timestamp nil
+  "Add a hook to automatically update the last edited timestamp.
+Uses the configuration variables `fvwm-last-updated-prefix',
+`fvwm-time-format-string' and `fvwm-last-updated-suffix'.")
 (defvar fvwm-last-updated-prefix "# Last edited on ")
 (defvar fvwm-time-format-string "%Y/%m/%d - %X"
   "See the help for `format-time-string' for more information.")
@@ -763,8 +767,6 @@ against the known Fvwm keywords."
                                (format-time-string fvwm-time-format-string)
                                fvwm-last-updated-suffix)))))
 
-(add-hook 'before-save-hook 'fvwm-timestamp-file)
-
 ;; -------------------------
 ;; |   Run Fvwm commands   |
 ;; -------------------------
@@ -824,6 +826,9 @@ Entry to this mode calls the value of `fvwm-mode-hook'"
 
   (set (make-local-variable 'font-lock-defaults)
        '(fvwm-font-lock-keywords nil fvwm-keywords-force-case))
+
+  (if fvwm-enable-last-updated-timestamp
+      (add-hook 'before-save-hook 'fvwm-timestamp-file))
   
   ;; XEmacs needs this, otherwise the menu isn't displayed.
   (if (featurep 'xemacs)

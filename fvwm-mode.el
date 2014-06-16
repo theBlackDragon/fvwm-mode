@@ -821,7 +821,6 @@ to actually work, see man FvwmCommand for details on that."
 Commands:
 \\{fvwm-mode-map}
 Entry to this mode calls the value of `fvwm-mode-hook'"
-  (kill-all-local-variables)
   (set (make-local-variable 'comment-start) "#")
 
   (set (make-local-variable 'font-lock-defaults)

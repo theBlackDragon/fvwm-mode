@@ -129,9 +129,10 @@ file.\n\nThis variable is t by default.")
 ;; -------------------------
 (defvar fvwm-mode-syntax-table
   (let ((table (copy-syntax-table)))
-    ;; Treat double quotes as whitespace as otherwise it messes with
-    ;; comment colouring.
-    (modify-syntax-entry ?\" "_"  table)
+    ;; Treat double and single quotes as whitespace as otherwise it
+    ;; messes with comment colouring.
+    (modify-syntax-entry ?\" "_" table)
+    (modify-syntax-entry ?\' "_" table)
     table)
   "Fvwm mode syntax table")
 

@@ -62,6 +62,20 @@
   "Add a hook to automatically update the last edited timestamp.
 Uses the configuration variables `fvwm-last-updated-prefix',
 `fvwm-time-format-string' and `fvwm-last-updated-suffix'.")
+
+(defun fvwm-handle-obsolete-keywords (warn-on-obsolete)
+  "How fvwm-mode should deal with keywords marked as obsolete.
+  If nil we pretend the keywords don't exist. If t we warn about
+  the presence of obsolete keywords (this mean they will get
+  hilighted with `font-lock-warning-face')."
+  (progn
+    (if warn-on-obsolete
+        (set 'font-lock-defaults
+             '(fvwm-font-lock-obsolete nil fvwm-keywords-force-case))
+      (set 'font-lock-defaults
+           '(fvwm-font-lock-keywords nil fvwm-keywords-force-case)))
+    (font-lock-refresh-defaults)))
+
 (defvar fvwm-last-updated-prefix "# Last edited on ")
 (defvar fvwm-time-format-string "%Y/%m/%d - %X"
   "See the help for `format-time-string' for more information.")
@@ -69,7 +83,8 @@ Uses the configuration variables `fvwm-last-updated-prefix',
 
 (defvar fvwm-fvwmcommand-path "FvwmCommand"
   "The path to the FvwmCommand executable.
-This most probably shouldn't be modified for a default Fvwm installation.")
+This most probably shouldn't be modified for a default Fvwm
+installation.")
 
 (defvar fvwm-keywords-force-case t
   "Force case sensitive highlighting.
@@ -193,12 +208,12 @@ file.\n\nThis variable is t by default.")
 
         "ChangeDecor" "ChangeMenuStyle" "CenterOnCirculate" "CirculateDown"
         "CirculateHit" "CirculateSkip" "CirculateSkipIcons" "CirculateUp" "ClickTime"
-        "ClickToFocus" "Close" "ColorLimit" "CleanupColorsets" "Colorset"
+        "ClickToFocus" "Close" "CleanupColorsets" "Colorset"
         "ColormapFocus" "CopyMenuStyle" "Current"
         "Cursor" "CursorMove" "CursorStyle"
 
         "DecorateTransients" "DefaultColors" "DefaultColorset" "DefaultFont"
-        "DefaultIcon" "DefaultLayers" "Delete" "Desk"
+        "DefaultIcon" "DefaultLayers" "Delete"
         "DesktopName" "DesktopSize"
         "Destroy" "DestroyModule" "Deschedule" "DestroyDecor" "DestroyFunc" "DestroyMenu"
         "DestroyModuleConfig"
@@ -214,11 +229,11 @@ file.\n\nThis variable is t by default.")
 
         "FakeClick" "FakeKeypress" "FlipFocus" "Focus" "Function"
 
-        "GlobalOpts" "GnomeButton" "GotoDesk" "GotoDeskAndPage" "GotoPage"
+        "GnomeButton" "GotoDesk" "GotoDeskAndPage" "GotoPage"
 
-        "HiBackColor" "HideGeometryWindow" "HiForeColor" "HilightColor"
+        "HiBackColor" "HideGeometryWindow" "HiForeColor"
 
-        "Icon" "IconBox" "IconFont" "Iconify" "IconPath"
+        "Icon" "IconBox" "Iconify"
         "IgnoreModifiers" "ImagePath" "InfoStoreAdd" "InfoStoreRemove"
 
         "Key" "KillModule"
@@ -236,19 +251,18 @@ file.\n\nThis variable is t by default.")
         "OpaqueMove" "OpaqueMoveSize" "OpaqueResize"
 
         "Pager" "PagerBackColor" "PagerFont" "PagerForeColor" "PagingDefault" "Pick"
-        "PipeRead" "PixmapPath" "PlaceAgain" "PointerKey" "Popup" "Prev" "PrintInfo"
+        "PipeRead" "PlaceAgain" "PointerKey" "Popup" "Prev" "PrintInfo"
 
         "Quit" "QuitScreen"
 
-        "Raise" "RaiseLower" "RandomPlacement" "Read" "Recapture"
-        "RecaptureWindow" "Refresh" "RefreshWindow" "Repeat" 
+        "Raise" "RaiseLower" "RandomPlacement" "Read"
+        "Refresh" "RefreshWindow" "Repeat" 
         "Resize" "ResizeMaximize" "ResizeMove" "ResizeMoveMaximize" 
         "RestackTransients" "Restart"
 
         "SaveUnders" "SaveQuitSession" "SaveSession" "Scroll" "SetAnimation" "SetEnv"
         "SetMenuDelay" "SetMenuStyle" "SendToModule" "Silent" "SmartPlacement"
-        "SnapGrid" "State"
-        "StartsOnDesk" "StaysOnTop" "StdBackColor" "StdForeColor" "Stick" "Sticky"
+        "StartsOnDesk" "State" "StaysOnTop" "StdBackColor" "StdForeColor" "Stick" "Sticky"
         "StickAcrossPages" "StickAcrossDesks" "StickyBackColor"
         "StickyForeColor" "StickyIcons" "Stroke" "StrokeFunc"
         "StubbornIconPlacement" "StubbornIcons" "StubbornPlacement"
@@ -259,8 +273,8 @@ file.\n\nThis variable is t by default.")
 
         "UnsetEnv" "UpdateDecor" "UpdateStyles"
 
-        "Wait" "Warp" "WarpToWindow" "WindowFont" "WindowId" "WindowList" "WindowListSkip"
-        "WindowShade" "WindowShadeAnimate" "WindowStyle""WindowsDesk" "Xinerama" "XineramaPrimaryScreen"
+        "Wait" "Warp" "WarpToWindow" "WindowId" "WindowList" "WindowListSkip"
+        "WindowShade" "WindowStyle" "Xinerama" "XineramaPrimaryScreen"
         "XineramaSls" "XineramaSlsSize" "XineramaSlsScreens" "XorPixmap" "XorValue"))
 ;; 
 ;; Fvwm keywords
@@ -280,7 +294,6 @@ file.\n\nThis variable is t by default.")
         "CGradient" "CaptureHonorsStorsOnPage" "CoptureIgnoresStartsOnPage" "CascadePlacement"
         "Centered" "CirculateHit" "CirculateHitIcon" "CirculateHitShaded" "CirculateSkip"
         "CirculateSkipIcon" "CirculateSkipShaded" "Clear" "ClickToFocus"
-        "ClickToFocusDoesntPassClick" "ClickToFocusDoestRaise"
         "ClickToFocusPassesClick" "ClickToFocusPassesClickOff"
         "ClickToFocusRaises" "ClickToFocusRaisesOff"
         "Color" "Colorset" "Context" "Columns"
@@ -320,8 +333,7 @@ file.\n\nThis variable is t by default.")
         "ManualPlacementIgnoresStartsOnPage" "MaxWindowSize" "Maximized" "Menu" "MenuColorset"
         "MenuFace" "MiniIcons" "MinOverlapPercentPlacement" "MinOverlapPlacement"
         "MinOverlapPlacementPenalties" "MinOverlapPercentPlacementPenalties" "MiniIcon"
-        "MixedVisualWorkaround" "ModalityIsEvil"
-        "Mouse" "MouseFocus" "MouseFocusClickDoesntRaise"
+        "MixedVisualWorkaround" "ModalityIsEvil" "Mouse" "MouseFocus"
         "MouseFocusClickRaises" "MouseFocusClickRaisesOff" "Move" "Mwm"
         "MwmBorder" "MwmButtons" "MwmDecor" "MwmFunctions" "MultiPixmap"))
 
@@ -330,7 +342,7 @@ file.\n\nThis variable is t by default.")
        "NoBoundaryWidth""NoButton" "NoDecorHint" "NoDeskSort" "NoFuncHint" "NoGeometry"
        "NoGeometryWithInfo" "NoHandles" "NoHotkeys" "NoIcon" "NoIconAction" "NoIconOverride" "NoIconPosition"
        "NoIconTitle" "NoIcons" "NoInset" "NoLenience" "NoMatch" "NoNormal" "NoOLDecor" "NoOnBottom" "NoOnTop"
-       "NoOverride" "NoPPosition" "NoResizeOverride" "NoSticky" "NoShape" "NoStipledTitles" "NoTitle"
+       "NoOverride" "NoPPosition" "NoResizeOverride" "NoSticky" "NoShape" "NoTitle"
        "NoTransientPPosition" "NoTransientUSPosition" "NoUSPosition" "NoWarp" "Normal" "North"
        "Northeast" "Northwest" "NotAlphabetic"
 
@@ -352,14 +364,14 @@ file.\n\nThis variable is t by default.")
        "SelectInPlace" "SelectOnReleasE" "SelectWarp" "SeparatorsLong" "SeparatorsShort"
        "ShowCurrentDesk" "ShowMapping"
        "SideColor" "SidePic" "Simple" "SkipMapping" "Slippery" "SlipperyIcon" "SmallFont" "SloppyFocus"
-       "SmartPlacement" "SmartPlacementIsNormal" "SmartPlacementIsReallySmart" "SnapAttraction" "SnapGrid"
+       "SmartPlacement" "SnapAttraction" "SnapGrid"
        "Solid" "SolidSeparators"
        "Sort" "South" "Southeast" "Southwest" "StackTransientParent" "StartIconic" "StartNormal" "StartShaded"
        "StartsAnyWhere" "StartsLowered" "StartsOnDesk" "StartsOnPage" "StartsOnPageIgnoresTransients"
        "StartsOnPageIncludesTransients" "StartsOnScreen" "StartsRaised" "State" "StaysOnBottom" "StaysOnTop"
        "StaysPut" "Sticky" "StickyAcrossDesks" "StickyAcrossDesksIcon" "StickyAcrossPagesIcon"
        "StickyIcon" "StickyStippledIconTitle" "StickyStippledTitle"
-       "StippledIconTitle" "StipledTitles" "StippledTitle" "StippledTitleOff"
+       "StippledIconTitle" "StippledTitle" "StippledTitleOff"
        "SubmenusLeft" "SubmenusRight" "Sunk" "StrokeWidth" "sh"
 
        "This" "TileCascadePlacement" "TileManualPlacement" "TiledPixmap" "Timeout" "Tint" "Title"
@@ -387,7 +399,7 @@ file.\n\nThis variable is t by default.")
 ;; regexp-opt in emacses before GNU Emacs 22
 (if (string< (substring emacs-version 0 2) "22")
     (let ()
-	(defvar fvwm-keywords-1-opt (regexp-opt fvwm-keywords-1))
+      (defvar fvwm-keywords-1-opt (regexp-opt fvwm-keywords-1))
       (defvar fvwm-keywords-2-opt (regexp-opt fvwm-keywords-2))
       (defvar fvwm-keywords (concat "\\<\\(" fvwm-keywords-1-opt "\\|" fvwm-keywords-2-opt "\\)\\>")))
   (defvar fvwm-keywords (concat "\\<" (regexp-opt (append fvwm-keywords-1 fvwm-keywords-2) t) "\\>")))
@@ -466,12 +478,29 @@ file.\n\nThis variable is t by default.")
        "FvwmConsoleC" "FvwmCpp" "FvwmDebug" "FvwmDragWell" "FvwmEvent"
        "FvwmForm" "FvwmGtk" "FvwmIconBox" "FvwmIconMan" "FvwmIdent"
        "FvwmM4" "FvwmPager" "FvwmRearrange" "FvwmSave" "FvwmSaveDesk"
-       "FvwmScript" "FvwmScroll" "FvwmTalk" "FvwmTaskBar" "FvwmTheme"
+       "FvwmScript" "FvwmScroll" "FvwmTalk" "FvwmTaskBar"
        "FvwmTile" "FvwmWharf" "FvwmWindowMenu" "FvwmWinList"
 
        "StartFunction" "InitFunction" "RestartFunction" "ExitFunction"
        "SessionInitFunction" "SessionRestartFunction" "SessionExitFunction"
        "MissingSubmenuFunction") t) "\\>"))
+;;
+;; Obsolete constructs
+;;
+(defvar fvwm-obsolete-functions (concat "\\<" (regexp-opt '(
+       "ColorLimit" "Desk" "GlobalOpts" "HilightColor" "IconFont"
+       "IconPath" "PixmapPath" "Recapture" "RecaptureWindow"
+       "SnapGrid" "WindowFont" "WindowShadeAnimate" "WindowsDesk"
+       ) t) "\\>"))
+
+(defvar fvwm-obsolete-keywords (concat "\\<" (regexp-opt '(
+       "ClickToFocusDoesntPassClick" "ClickToFocusDoestRaise"
+       "MouseFocusClickDoesntRaise" "NoStipledTitles"
+       "SmartPlacementIsNormal" "SmartPlacementIsReallySmart"
+       "StipledTitles") t) "\\>"))
+
+(defvar fvwm-obsolete-special (concat "\\<" (regexp-opt '(
+       "FvwmTheme") t) "\\>"))
 ;; 
 ;; Some others:
 ;; (regexp-opt '("bottom bottomright" "button" "default" "down" "indicator" "none" "pointer" "position" "prev" "quiet" "top" "unlimited") t)
@@ -560,21 +589,29 @@ file.\n\nThis variable is t by default.")
 ;; 
 (defconst fvwm-font-lock-keywords-2
   (append fvwm-font-lock-keywords-1
-	  (list
-	   '("\\(rgb:..\/..\/..\\)" 1 'fvwm-rgb-value-face)
-	   '("\\($[-_a-zA-Z0-9]*\\)" 1 'font-lock-variable-name-face)
-	   (cons fvwmscript-instructions `'font-lock-function-name-face) ;instructions
-	   (cons fvwmscript-functions `'font-lock-function-name-face) ;functions
-	   '("\\<\\(Begin\\|Case\\|Do\\|E\\(?:lse\\|nd\\)\\|I\\(?:f\\|nit\\)\\|Main\\|P\\(?:eriodicTasks\\|roperty\\)\\|QuitFunc\\|Set\\|Then\\|Widget\\)\\>" . 'font-lock-keyword-face)
-	   (cons fvwmscript-properties `'font-lock-keyword-face) ;properties
-	   (cons fvwmscript-flagsopt `'font-lock-function-name-face) ;flagsOpt
-	   (cons fvwmscript-keywords `'font-lock-keyword-face)	  ;keywords
-	   (cons fvwmscript-widgets `'font-lock-keyword-face)))	  ;widgets
-	  "FvwmScript keywords to hilight.")
+          (list
+           '("\\(rgb:..\/..\/..\\)" 1 'fvwm-rgb-value-face)
+           '("\\($[-_a-zA-Z0-9]*\\)" 1 'font-lock-variable-name-face)
+           (cons fvwmscript-instructions `'font-lock-function-name-face) ;instructions
+           (cons fvwmscript-functions `'font-lock-function-name-face) ;functions
+           '("\\<\\(Begin\\|Case\\|Do\\|E\\(?:lse\\|nd\\)\\|I\\(?:f\\|nit\\)\\|Main\\|P\\(?:eriodicTasks\\|roperty\\)\\|QuitFunc\\|Set\\|Then\\|Widget\\)\\>" . 'font-lock-keyword-face)
+           (cons fvwmscript-properties `'font-lock-keyword-face) ;properties
+           (cons fvwmscript-flagsopt `'font-lock-function-name-face) ;flagsOpt
+           (cons fvwmscript-keywords `'font-lock-keyword-face) ;keywords
+           (cons fvwmscript-widgets `'font-lock-keyword-face))) ;widgets
+  "FvwmScript keywords to hilight.")
 
 (defvar fvwm-font-lock-keywords fvwm-font-lock-keywords-2
   "Default highlighting for Fvwm mode.")
 
+(defconst fvwm-font-lock-obsolete
+  (append fvwm-font-lock-keywords
+          (list
+           (cons fvwm-obsolete-functions `'font-lock-warning-face)
+           (cons fvwm-obsolete-keywords `'font-lock-warning-face)
+           (cons fvwm-obsolete-special `'font-lock-warning-face)))
+  "Highlight obsolete keywords on top of the regular keywords
+  specified by `fvwm-font-lock-keywords'")
 ;; -------------------------
 ;; |       Functions       |
 ;; -------------------------

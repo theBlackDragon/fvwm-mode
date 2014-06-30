@@ -185,129 +185,145 @@ file.\n\nThis variable is t by default.")
 ;; Fvwm functions
 ;; 
 (defvar fvwm-functions '(
-	"AddButtonStyle" "AddTitleStyle" "AddToDecor" "AddToFunc" "AddToMenu"
-	"AnimatedMove" "Any" "AppsBackingStore" "Autoraise"
+        "AddButtonStyle" "AddTitleStyle" "AddToDecor" "AddToFunc" "AddToMenu"
+        "AnimatedMove" "Any" "AppsBackingStore" "Autoraise"
 
-	"BackingStore" "Beep" "BorderStyle" "BoundaryWidth" "BugOpts" "BusyCursor"
-	"ButtonState" "ButtonStyle" "DestroyModuleConfig"
+        "BackingStore" "Beep" "BorderStyle" "BoundaryWidth" "BugOpts" "BusyCursor"
+        "ButtonState" "ButtonStyle" 
 
-	"ChangeDecor" "ChangeMenuStyle" "CenterOnCirculate" "CirculateDown"
-	"CirculateHit" "CirculateSkip" "CirculateSkipIcons" "CirculateUp" "ClickTime"
-	"ClickToFocus" "Close" "ColorLimit" "ColormapFocus" "CopyMenuStyle" "Current"
-	"Cursor" "CursorMove" "CursorStyle"
+        "ChangeDecor" "ChangeMenuStyle" "CenterOnCirculate" "CirculateDown"
+        "CirculateHit" "CirculateSkip" "CirculateSkipIcons" "CirculateUp" "ClickTime"
+        "ClickToFocus" "Close" "ColorLimit" "CleanupColorsets" "Colorset"
+        "ColormapFocus" "CopyMenuStyle" "Current"
+        "Cursor" "CursorMove" "CursorStyle"
 
-	"DecorateTransients" "DefaultColors" "DefaultColorset" "DefaultFont"
-	"DefaultIcon" "DefaultLayers" "Delete" "Desk" "DesktopName" "DesktopSize"
-	"Destroy" "DestroyModule" "Deschedule" "DestroyDecor" "DestroyFunc" "DestroyMenu"
-	"DestroyMenuStyle" "Direction" "DontMoveOff"
+        "DecorateTransients" "DefaultColors" "DefaultColorset" "DefaultFont"
+        "DefaultIcon" "DefaultLayers" "Delete" "Desk"
+        "DesktopName" "DesktopSize"
+        "Destroy" "DestroyModule" "Deschedule" "DestroyDecor" "DestroyFunc" "DestroyMenu"
+        "DestroyModuleConfig"
+        "DestroyMenuStyle" "Direction" "DontMoveOff"
+        "DestroyStyle" "DestroyWindowStyle"
 
-	"Echo" "EchoFuncDefinition" "EdgeCommand" "EdgeMoveResistance" "EdgeMoveDelay" "EdgeResizeDelay" "EdgeResistance" "EdgeScroll" "EdgeThickness" "Emulate"
-	"EndFunction" "EndMenu" "EndPopup" "EscapeFunc" "EWMHBaseStruts" "Exec"
-	"ExecUseShell" "ExitFunction"  "EWMHActivateWindowFunc"
+        "Echo" "EchoFuncDefinition" "EdgeCommand" "EdgeMoveResistance"
+        "EdgeMoveDelay" "EdgeResizeDelay" "EdgeResistance" "EdgeScroll"
+        "EdgeThickness" "Emulate" "EdgeLeaveCommand"
+        "EndFunction" "EndMenu" "EndPopup" "EscapeFunc" "EwmhBaseStruts" "Exec"
+        "EwmhNumberOfDesktops"
+        "ExecUseShell" "ExitFunction"  "EWMHActivateWindowFunc"
 
-	"FakeClick" "FlipFocus" "Focus" "Function"
+        "FakeClick" "FakeKeypress" "FlipFocus" "Focus" "Function"
 
-	"GlobalOpts" "GnomeButton" "GotoDesk" "GotoDenkAndPage" "GotoPage"
+        "GlobalOpts" "GnomeButton" "GotoDesk" "GotoDeskAndPage" "GotoPage"
 
-	"HiBackColor" "HideGeometryWindow" "HiForeColor" "HilightColor"
+        "HiBackColor" "HideGeometryWindow" "HiForeColor" "HilightColor"
 
-	"Icon" "IconBox" "IconFont" "Iconify" "IconPath" "IgnoreModifiers" "ImagePath"
+        "Icon" "IconBox" "IconFont" "Iconify" "IconPath"
+        "IgnoreModifiers" "ImagePath" "InfoStoreAdd" "InfoStoreRemove"
 
-	"Key"
+        "Key" "KillModule"
 
-	"Layer" "Lenience" "Lower"
+        "Layer" "Lenience" "LocalePath" "Lower"
 
-	"Maximize" "Menu" "MenuBackColor" "MenuCloseAndExec" "MenuForeColor" "MenuStippleColor" "MenuStyle"
-	"Module" "ModuleListenOnly" "ModulePath" "Mouse" "Move" "MoveThreshold" "MoveToDesk" "MoveToPage"
-	"MoveToScreen" "MWMBorders" "MWMButtons" "MWMDecorHints" "MWMFunctionHints"
-	"MWMHintOverride" "MWMMenus"
+        "Maximize" "Menu" "MenuBackColor" "MenuCloseAndExec" "MenuForeColor" "MenuStippleColor" "MenuStyle"
+        "Module" "ModuleListenOnly" "ModulePath" "Mouse" "Move" "MoveThreshold" "MoveToDesk" "MoveToPage"
+        "ModuleSynchronous" "ModuleTimeout"
+        "MoveToScreen" "MWMBorders" "MWMButtons" "MWMDecorHints" "MWMFunctionHints"
+        "MWMHintOverride" "MWMMenus"
 
-	"Next" "NoBorder" "NoBoundaryWidth" "None" "Nop" "NoPPosition" "NoTitle"
+        "Next" "NoBorder" "NoBoundaryWidth" "None" "Nop" "NoPPosition" "NoTitle"
 
-	"OpaqueMove" "OpaqueMoveSize" "OpaqueResize"
+        "OpaqueMove" "OpaqueMoveSize" "OpaqueResize"
 
-	"Pager" "PagerBackColor" "PagerFont" "PagerForeColor" "PagingDefault" "Pick"
-	"PipeRead" "PixmapPath" "PlaceAgain" "PointerKey" "Popup" "Prev"
+        "Pager" "PagerBackColor" "PagerFont" "PagerForeColor" "PagingDefault" "Pick"
+        "PipeRead" "PixmapPath" "PlaceAgain" "PointerKey" "Popup" "Prev" "PrintInfo"
 
-	"Quit" "QuitScreen" "QuitSession"
+        "Quit" "QuitScreen"
 
-	"Raise" "RaiseLower" "RandomPlacement" "Read" "Recapture" "RecaptureWindow"
-	"Refresh" "Resize" "ResizeMove" "Restart"
+        "Raise" "RaiseLower" "RandomPlacement" "Read" "Recapture"
+        "RecaptureWindow" "Refresh" "RefreshWindow" "Repeat" 
+        "Resize" "ResizeMaximize" "ResizeMove" "ResizeMoveMaximize" 
+        "RestackTransients" "Restart"
 
-	"SaveUnders" "SaveQuitSession" "SaveSession" "Scroll" "SetAnimation" "SetEnv"
-	"SetMenuDelay" "SetMenuStyle" "SendToModule" "Silent" "SmartPlacement"
-	"SnapGrid" "StartsOnDesk" "StaysOnTop" "StdBackColor" "StdForeColor" "Stick" "Sticky"
-	"StickyBackColor" "StickyForeColor" "StickyIcons" "Stroke" "StrokeFunc"
-	"StubbornIconPlacement" "StubbornIcons" "StubbornPlacement" "Style" "StyleFocus"
-	"SuppressIcons" "Swallow"  "Schedule"
+        "SaveUnders" "SaveQuitSession" "SaveSession" "Scroll" "SetAnimation" "SetEnv"
+        "SetMenuDelay" "SetMenuStyle" "SendToModule" "Silent" "SmartPlacement"
+        "SnapGrid" "State"
+        "StartsOnDesk" "StaysOnTop" "StdBackColor" "StdForeColor" "Stick" "Sticky"
+        "StickAcrossPages" "StickAcrossDesks" "StickyBackColor"
+        "StickyForeColor" "StickyIcons" "Stroke" "StrokeFunc"
+        "StubbornIconPlacement" "StubbornIcons" "StubbornPlacement"
+        "Style" "StyleFocus" "SuppressIcons" "Swallow"  "Schedule"
 
-	"Test" "TitleStyle" "TogglePage"
+        "TearMenuOff" "Test" "Title" "TitleStyle" "TogglePage"
         "ThisWindow" "TestRc"
 
-	"UnsetEnv" "UpdateDecor" "UpdateStyles"
+        "UnsetEnv" "UpdateDecor" "UpdateStyles"
 
-	"Wait" "Warp" "WarpToWindow" "WindowFont" "WindowId" "WindowList" "WindowListSkip"
-	"WindowShade" "WindowShadeAnimate" "WindowsDesk" "Xinerama" "XineramaPrimaryScreen"
-	"XineramaSls" "XineramaSlsSize" "XorPixmap" "XorValue"))
+        "Wait" "Warp" "WarpToWindow" "WindowFont" "WindowId" "WindowList" "WindowListSkip"
+        "WindowShade" "WindowShadeAnimate" "WindowStyle""WindowsDesk" "Xinerama" "XineramaPrimaryScreen"
+        "XineramaSls" "XineramaSlsSize" "XineramaSlsScreens" "XorPixmap" "XorValue"))
 ;; 
 ;; Fvwm keywords
 ;; 
 (defvar fvwm-keywords-1 '(
-       "Action" "Active" "ActiveColorset" "ActiveDown" "ActiveFore" "ActiveForeOff"
-       "ActivePlacement" "ActivePlacementHonorsStartsOnPage" "ActivePlacementIgnoresStartsOnPage"
-       "ActiveUp" "All" "AllDesks" "AllowRestack" "AllPages" "Alphabetic" "Anim" "Animated" "Animation" "AnimationOff"
-       "AutomaticHotkeys" "AutomaticHotkeysOff" "AdjustedPixmap"
+        "Action" "Active" "ActiveColorset" "ActiveDown" "ActiveFore" "ActiveForeOff"
+        "ActivePlacement" "ActivePlacementHonorsStartsOnPage" "ActivePlacementIgnoresStartsOnPage"
+        "ActiveUp" "All" "AllDesks" "AllowRestack" "AllPages" "Alphabetic" "Anim" "Animated" "Animation" "AnimationOff"
+        "AutomaticHotkeys" "AutomaticHotkeysOff" "AdjustedPixmap"
         
-       "BGradient" "Back" "BackColor" "Background" "BackingStore" "BackingStoreOff" "BalloonColorset" "bg"
-       "Balloons" "BalloonFont" "BalloonYOffset" "BalloonBorderWidth"
-       "BorderColorset" "BorderWidth" "Bottom" "BoundaryWidth" "Buffer" "Button"
-       "Button0" "Button1" "Button2" "Button3" "Button4" "Button5" "Button6" "Button7" "Button8"
-       "Button9" "ButtonGeometry"
+        "BGradient" "Back" "BackColor" "Background" "BackingStore" "BackingStoreOff" "BalloonColorset" "bg"
+        "Balloons" "BalloonFont" "BalloonYOffset" "BalloonBorderWidth"
+        "BorderColorset" "Borders" "BorderWidth" "Bottom" "BoundaryWidth" "Buffer" "Button"
+        "Button0" "Button1" "Button2" "Button3" "Button4" "Button5" "Button6" "Button7" "Button8"
+        "Button9" "ButtonGeometry"
 
-       "CGradient" "CaptureHonorsStorsOnPage" "CoptureIgnoresStartsOnPage" "CascadePlacement"
-       "Centered" "CirculateHit" "CirculateHitIcon" "CirculateHitShaded" "CirculateSkip"
-       "CirculateSkipIcon" "CirculateSkipShaded" "Clear" "ClickToFocus" "ClickToFocusDoesntPassClick"
-       "ClickToFocusDoestRaise" "ClickToFocusPassesClick" "ClickToFocusPassesClickOff"
-       "ClickToFocusRaises" "ClickToFocusRaisesOff" "Color" "Colorset" "Context" "Columns"
-       "CurrentDesk" "CurrentPage" "CurrentPageAnyDesk"
+        "CGradient" "CaptureHonorsStorsOnPage" "CoptureIgnoresStartsOnPage" "CascadePlacement"
+        "Centered" "CirculateHit" "CirculateHitIcon" "CirculateHitShaded" "CirculateSkip"
+        "CirculateSkipIcon" "CirculateSkipShaded" "Clear" "ClickToFocus"
+        "ClickToFocusDoesntPassClick" "ClickToFocusDoestRaise"
+        "ClickToFocusPassesClick" "ClickToFocusPassesClickOff"
+        "ClickToFocusRaises" "ClickToFocusRaisesOff"
+        "Color" "Colorset" "Context" "Columns"
+        "CurrentDesk" "CurrentPage" "CurrentPageAnyDesk"
 
-       "DrawMotion" "DGradient" "DecorateTransient" "Default" "Delay" "DepressableBorder" "Desk" "DontLowerTransient"
-       "DontRaiseTransient" "DontShowName" "DontStackTransient" "DontStackTransientParent" "DoubleClick"
-       "DoubleClickTime" "Down" "DrawIcons" "DumbPlacement" "DynamicMenu" "DynamicPopDownAction"
-       "DynamicPopupAction"
+        "DrawMotion" "DGradient" "DecorateTransient" "Default" "Delay" "DepressableBorder" "Desk" "DontLowerTransient"
+        "DontRaiseTransient" "DontShowName" "DontStackTransient" "DontStackTransientParent" "DoubleClick"
+        "DoubleClickTime" "Down" "DrawIcons" "DumbPlacement" "DynamicMenu" "DynamicPopDownAction"
+        "DynamicPopupAction"
 
-       "EdgeMoveDelay" "EdgeMoveResistance" "East" "Expect" "Effect"
+        "EdgeMoveDelay" "EdgeMoveResistance" "East" "Expect" "Effect"
 
-       "FVWM" "FirmBorder" "Fixed" "FixedPosition" "FixedPPosition" "FixedSize" "Flat" "FlickeringMoveWorkaround"
-       "FlickeringQtDialogsWorkaround" "FocusColorset" "FocusButton" "FocusFollowsMouse" "FollowsFocus"
-       "FollowsMouse" "Fore" "Font" "ForeColor" "ForeGround" "Format" "Frame" "Function" "Fvwm"
-       "FvwmBorder" "FeedBack" "fg" "fgsh" "fgAlpha"
+        "FVWM" "FirmBorder" "Fixed" "FixedPosition" "FixedPPosition" "FixedSize" "Flat" "FlickeringMoveWorkaround"
+        "FlickeringQtDialogsWorkaround" "FocusColorset" "FocusButton" "FocusFollowsMouse" "FocusStyle" "FollowsFocus"        
+        "FollowsMouse" "Fore" "Font" "ForeColor" "ForeGround" "Format" "Frame" "Function" "Fvwm"
+        "FvwmBorder" "FeedBack" "fg" "fgsh" "fgAlpha"
 
-       "GNOMEIgnoreHints" "GNOMEUseHints" "Geometry" "GrabFocus" "GrabFocusOff" "GrabFocusTransient"
-       "GrabFocusTransientOff" "Greyed" "GreyedColorset"
+        "GNOMEIgnoreHints" "GNOMEUseHints" "Geometry" "GrabFocus" "GrabFocusOff" "GrabFocusTransient"
+        "GrabFocusTransientOff" "Greyed" "GreyedColorset"
 
-       "HGradient" "Handles" "HandleWidth" "Height" "HiddenHandles" "Hilight3DOff" "Hilight3DThick"
-       "Hilight3DThickness" "Hilight3dThin" "HilightBack" "HilightBackOff" "HilightBorderColorset"
-       "HilightColorset" "HilightFore" "HintOverride" "HoldSubmenus"
-       "HilightIconTitleColorset" "hi"
-       
-       "Icon" "IconAlpha" "IconBox" "IconFill" "IconFont" "IconGrid" "IconOverride" "IconTitle"
-       "Iconic" "IconifyWindowGroups" "IconifyWindowGroupsOff" "Icons" "IgnoreRestack" "Inactive"
-       "InActive" "IndexedWindowName" "Init" "InitialMapCommand" "Interior" "Item" "ItemFormat" "Iterations"
-       "IconTitleColorset" "IconTitleRelief" "IndexedIconName" "IconBackgroundPadding" "IconTint"
-       
-       "KeepWindowGroupsOnDesk"
+        "HGradient" "Handles" "HandleWidth" "Height" "HiddenHandles" "Hilight3DOff" "Hilight" "Hilight3DThick"
+        "Hilight3DThickness" "Hilight3dThin" "HilightBack" "HilightBackOff" "HilightBorderColorset"
+        "HilightColorset" "HilightFore" "HintOverride" "HoldSubmenus"
+        "HilightIconTitleColorset" "hi"
 
-       "Last" "Layer" "Left" "LeftJustified" "LeftJustify" "Lenience" "LowerTransient" "LeftOfText"
+        "Icon" "IconAlpha" "IconBox" "IconFill" "IconFont" "IconGrid" "IconOverride" "IconSize" "IconTitle"
+        "Iconic" "IconifyWindowGroups" "IconifyWindowGroupsOff" "Icons" "IgnoreRestack" "Inactive"
+        "InActive" "IndexedWindowName" "Init" "InitialMapCommand" "Interior" "Item" "ItemFormat" "Iterations"
+        "IconTitleColorset" "IconTitleFormat" "IconTitleRelief" "IndexedIconName" "IconBackgroundPadding" "IconTint"
 
-       "Match" "MWM" "MWMBorder" "MWMDecor" "MWMDecorMax" "MWMDecorMenu" "MWMDecorMin" "MWMFunctions"
-       "ManagerGeometry" "ManualPlacement" "ManualPlacementHonorsStartsOnPage"
-       "ManualPlacementIgnoresStartsOnPage" "MaxWindowSize" "Maximized" "Menu" "MenuColorset"
-       "MenuFace" "MiniIcons" "MinOverlapPercentPlacement" "MinOverlapPlacement"
-       "MinOverlapPlacementPenalties" "MinOverlapPercentPlacementPenalties" "MiniIcon"
-       "MixedVisualWorkaround" "ModalityIsEvil" "ModuleSynchronous" "Mouse" "MouseFocus"
-       "MouseFocusClickDoesntRaise" "MouseFocusClickRaises" "MouseFocusClickRaisesOff" "Move" "Mwm"
-       "MwmBorder" "MwmButtons" "MwmDecor" "MwmFunctions" "MultiPixmap" ))
+        "KeepWindowGroupsOnDesk"
+
+        "Last" "Layer" "Left" "LeftJustified" "LeftJustify" "Lenience" "LowerTransient" "LeftOfText"
+
+        "Match" "MWM" "MWMBorder" "MWMDecor" "MWMDecorMax" "MWMDecorMenu" "MWMDecorMin" "MWMFunctions"
+        "ManagerGeometry" "ManualPlacement" "ManualPlacementHonorsStartsOnPage"
+        "ManualPlacementIgnoresStartsOnPage" "MaxWindowSize" "Maximized" "Menu" "MenuColorset"
+        "MenuFace" "MiniIcons" "MinOverlapPercentPlacement" "MinOverlapPlacement"
+        "MinOverlapPlacementPenalties" "MinOverlapPercentPlacementPenalties" "MiniIcon"
+        "MixedVisualWorkaround" "ModalityIsEvil"
+        "Mouse" "MouseFocus" "MouseFocusClickDoesntRaise"
+        "MouseFocusClickRaises" "MouseFocusClickRaisesOff" "Move" "Mwm"
+        "MwmBorder" "MwmButtons" "MwmDecor" "MwmFunctions" "MultiPixmap"))
 
 (defvar fvwm-keywords-2 '(
        "NakedTransient" "Never" "NeverFocus" "NoActiveIconOverride" "NoBorder" "NoButton"
@@ -336,10 +352,11 @@ file.\n\nThis variable is t by default.")
        "SelectInPlace" "SelectOnReleasE" "SelectWarp" "SeparatorsLong" "SeparatorsShort"
        "ShowCurrentDesk" "ShowMapping"
        "SideColor" "SidePic" "Simple" "SkipMapping" "Slippery" "SlipperyIcon" "SmallFont" "SloppyFocus"
-       "SmartPlacement" "SmartPlacementIsNormal" "SmartPlacementIsReallySmart" "SnapAttraction" "Solid" "SolidSeparators"
+       "SmartPlacement" "SmartPlacementIsNormal" "SmartPlacementIsReallySmart" "SnapAttraction" "SnapGrid"
+       "Solid" "SolidSeparators"
        "Sort" "South" "Southeast" "Southwest" "StackTransientParent" "StartIconic" "StartNormal" "StartShaded"
        "StartsAnyWhere" "StartsLowered" "StartsOnDesk" "StartsOnPage" "StartsOnPageIgnoresTransients"
-       "StartsOnPageIncludesTransients" "StartsOnScreen" "StartsRaised" "StaysOnBottom" "StaysOnTop"
+       "StartsOnPageIncludesTransients" "StartsOnScreen" "StartsRaised" "State" "StaysOnBottom" "StaysOnTop"
        "StaysPut" "Sticky" "StickyAcrossDesks" "StickyAcrossDesksIcon" "StickyAcrossPagesIcon"
        "StickyIcon" "StickyStippledIconTitle" "StickyStippledTitle"
        "StippledIconTitle" "StipledTitles" "StippledTitle" "StippledTitleOff"
@@ -530,7 +547,7 @@ file.\n\nThis variable is t by default.")
        "Type" "Size" "Position" "Title" "Value" "MaxValue" "MinValue" "Font"
        "ForeColor" "BackColor" "HilightColor" "ShadowColor" "Colorset" "Flags") t) "\\>"));properties
 (defvar fvwmscript-flagsopt (concat "\\<" (regexp-opt '(
-       "Hidden" "NoReliefString" "NoFocus" "Left" "Center" "Right") t) "\\>"))	;flagsOpt
+       "Hidden" "NoReliefString" "NoFocus" "Left" "Center" "Right") t) "\\>"))  ;flagsOpt
 (defvar fvwmscript-keywords (concat "\\<" (regexp-opt '(
        "BackColor" "Colorset" "DefaultFont" "DefaultBack" "DefaultColorset"
        "DefaultFore" "DefaultHilight" "DefaultShadow" "Font" "ForeColor" "HilightColor"

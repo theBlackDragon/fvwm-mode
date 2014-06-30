@@ -133,6 +133,9 @@ file.\n\nThis variable is t by default.")
     ;; messes with comment colouring.
     (modify-syntax-entry ?\" "_" table)
     (modify-syntax-entry ?\' "_" table)
+    ;; '-' and '_' are word characters in fvwm config files.
+    (modify-syntax-entry ?\- "w"  table)
+    (modify-syntax-entry ?\_ "w"  table)
     table)
   "Fvwm mode syntax table")
 

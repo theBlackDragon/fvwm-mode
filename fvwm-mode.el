@@ -192,10 +192,6 @@ file.\n\nThis variable is t by default.")
   "Fvwm Mode mode face used to highlight RGB value."
   :group 'fvwm-faces)
 
-;; -------------------------
-;; |  Syntax highlighting  |
-;; -------------------------
-(require 'font-lock)
 ;;
 ;; Fvwm functions
 ;; 

@@ -95,9 +95,9 @@ the way Fvwm treats the keywords when parsing the configuration
 file.\n\nThis variable is t by default.")
 
 (defvar fvwm-preload-completions)       ;silence byte-compiler
-(if (not (featurep 'pcomplete))
-    (defvar fvwm-preload-completions nil
-      "If you are planning on using completion a lot it might be
+(unless (featurep 'pcomplete)
+  (defvar fvwm-preload-completions nil
+    "If you are planning on using completion a lot it might be
       advisable to set this to t as otherwise you'll experience a
       delay when trying to use completion for the first time"))
 
@@ -673,11 +673,11 @@ GEOMETRY sets the FvwmButtons Geometry option."
   (interactive "sFvwmButtons alias? \nsAmount of rows? \nsAmount of columns? \nsGeometry? ")
   (skeleton-insert
    '(nil "DestroyModuleConfig " name ": *\n"
-     (if (not (string-equal rows "" ))
+     (when (not (string-equal rows "" ))
          (insert (concat "*" name ": Rows " rows "\n")))
-     (if (not (string-equal columns "" ))
+     (when (not (string-equal columns "" ))
          (insert (concat "*" name ": Columns " columns "\n")))
-     (if (not (string-equal geometry "" ))
+     (when (not (string-equal geometry "" ))
          (insert (concat "*" name ": Geometry " geometry "\n")))
      "\n")))
 
@@ -690,10 +690,10 @@ respective FvwmScript properties."
   (skeleton-insert
    '(nil "#-*-fvwm-*-\n"
 	 "WindowTitle {" title "}\n"
-	 (if (and (not (string-equal width "")) (not (string-equal height "")))
-             (insert (concat "WindowSize " width " " height)))
-	 (if (not (string-equal font ""))
-             (insert (concat "Font " font)))
+	 (when (and (not (string-equal width "")) (not (string-equal height "")))
+           (insert (concat "WindowSize " width " " height)))
+	 (when (not (string-equal font ""))
+           (insert (concat "Font " font)))
      "Init\n"
      "Begin\n"
      " " _ "\n"
@@ -710,16 +710,15 @@ the TITLE is the title for the widget, or nothing if left empty,
 the NUMBER is the number the widget will get it defaults to
 number one higher than the current highest widget number."
   (interactive "sWidget type (default: ItemDraw): \nsWidget title (default: empty): \nsWidget number (default: next highest number): \nsx-position (default: 0): \nsy-position (default: 0): \nsWidth (default: 100): \nsHeight (default: 50): ")
-  (if (string= number "")
+  (when (string= number "")
       (let ((widget-number "0") temp-widget-number (working-point-position (point))) ; use save-excursion instead of saving the point position
 	"Find the highest numbered widget"
 	(goto-char (point-max))
 	(while (re-search-backward "^Widget \\(.*\\)" nil t)
 	  (setq temp-widget-number (buffer-substring-no-properties (match-beginning 1) (match-end 1)))
-	  (if (string< widget-number temp-widget-number)
-	      (progn
-		(setq widget-number temp-widget-number)
-		(forward-word 1))))
+	  (when (string< widget-number temp-widget-number)
+            (setq widget-number temp-widget-number)
+            (forward-word 1)))
 	(setq number (+ (string-to-number widget-number) 1))
 	(goto-char working-point-position)))
   (skeleton-insert
@@ -743,7 +742,7 @@ number one higher than the current highest widget number."
 (if (featurep 'pcomplete)
     (let (fvwm-all-completions)
       (defun pcomplete-fvwm-setup ()
-        (if (not fvwm-all-completions)
+        (when (not fvwm-all-completions)
             (setq fvwm-all-completions (append fvwm-functions fvwm-keywords-1 fvwm-keywords-2)))
         (set (make-local-variable 'pcomplete-parse-arguments-function)
              'pcomplete-parse-fvwm-arguments)
@@ -794,10 +793,10 @@ against the known Fvwm keywords."
         ;; This function is largely based on lisp-complete-symbol from GNU Emacs' lisp.el
         (interactive)
         
-        (if (and
-             (not fvwm-keywords-map)
-             (fboundp 'fvwm-generate-hashmap)) ;should always be defined when we get here; silence byte compiler with explicit check
-            (fvwm-generate-hashmap))
+        (when (and
+               (not fvwm-keywords-map)
+               (fboundp 'fvwm-generate-hashmap)) ;should always be defined when we get here; silence byte compiler with explicit check
+          (fvwm-generate-hashmap))
         
         (let ((window (get-buffer-window "*Completions*")))
           (if (and (eq last-command this-command)
@@ -850,12 +849,12 @@ against the known Fvwm keywords."
 (defun fvwm-timestamp-file ()
   (save-excursion
     (goto-char (point-min))
-    (if (and (buffer-modified-p)
-             (re-search-forward (concat "^" fvwm-last-updated-prefix ".*")
-                                nil t))
-        (replace-match (concat fvwm-last-updated-prefix
-                               (format-time-string fvwm-time-format-string)
-                               fvwm-last-updated-suffix)))))
+    (when (and (buffer-modified-p)
+               (re-search-forward (concat "^" fvwm-last-updated-prefix ".*")
+                                  nil t))
+      (replace-match (concat fvwm-last-updated-prefix
+                             (format-time-string fvwm-time-format-string)
+                             fvwm-last-updated-suffix)))))
 
 ;; -------------------------
 ;; |   Run Fvwm commands   |
@@ -916,12 +915,12 @@ Entry to this mode calls the value of `fvwm-mode-hook'"
   (set (make-local-variable 'font-lock-defaults)
        '(fvwm-font-lock-keywords nil fvwm-keywords-force-case))
 
-  (if fvwm-enable-last-updated-timestamp
-      (add-hook 'before-save-hook 'fvwm-timestamp-file))
+  (when fvwm-enable-last-updated-timestamp
+    (add-hook 'before-save-hook 'fvwm-timestamp-file))
   
   ;; XEmacs needs this, otherwise the menu isn't displayed.
-  (if (featurep 'xemacs)
-      (easy-menu-add fvwm-menu fvwm-mode-map))
+  (when (featurep 'xemacs)
+    (easy-menu-add fvwm-menu fvwm-mode-map))
 
   ;; Create the completions database when the mode is first loaded on XEmacs
   ;; (or any other Emacs not providing pcomplete)

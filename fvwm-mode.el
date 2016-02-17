@@ -51,6 +51,10 @@
 ;; 
 ;;
 ;;; Code:
+
+(eval-when-compile
+  (require 'cl))
+
 (defconst fvwm-mode-version "1.6.4"
   "Version number for this release of `fvwm-mode'.")
 

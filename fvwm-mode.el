@@ -866,8 +866,8 @@ against the known Fvwm keywords."
 FvwmCommandS needs to be running, see man FvwmCommand for
 detailed instructions."
   (interactive "sCommand? ")
-  (call-process-shell-command fvwm-fvwmcommand-path nil nil nil
-                              (shell-quote-argument command)))
+  (call-process-shell-command
+   (concat fvwm-fvwmcommand-path (shell-quote-argument command)) nil nil nil))
 
 (defun fvwm-execute-region (&optional beg end partial-exp)
   "Execute the Fvwm commands in the selected region using FvwmCommand.

@@ -1,6 +1,6 @@
 ;;; fvwm-mode.el --- A major mode for editing Fvwm configuration files
 ;;
-;; Copyright (C) 2005-2014 Bert Geens
+;; Copyright (C) 2005-2016 Bert Geens
 ;;
 ;; Author: Bert Geens <bert@lair.be>
 ;; Maintainer: Bert Geens <bert@lair.be>

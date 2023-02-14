@@ -1,6 +1,6 @@
 fvwm-mode NEWS
 
-* dev
+* 2.0.0 (24 Feb 2023)
 ** made highlighting of obsolete keywords configurable (see the 
    fvwm-handle-obsolete-keywords function)
 ** updated syntax table to correctly handle single quotes, underscores 

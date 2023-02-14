@@ -761,89 +761,7 @@ number one higher than the current highest widget number."
                  (ptt (if pt (+ pt 1) thispt)))
             (list
              (list "dummy" (buffer-substring-no-properties ptt thispt))
-             (point-min) ptt)))))
-    
-
-    ;; Still need the following two functions for XEmacs which doesn't
-    ;; support pcomplete
-    (progn
-      (defvar fvwm-keywords-map)
-
-      (defun fvwm-generate-hashmap ()
-        "Generate the alist or hash-map needed by fvwm-complete-keyword."
-        (let ((fvwm-keywords-all (append fvwm-functions fvwm-keywords-1 fvwm-keywords-2)))
-          (message "Generating list of completions...")
-          (if (and (not (featurep 'xemacs)) (> emacs-major-version 21))
-              (progn
-                (setq fvwm-keywords-map (make-hash-table))
-                (let ((i 0))
-                  (while (< i (length fvwm-keywords-all))
-                    (puthash (nth i fvwm-keywords-all) nil fvwm-keywords-map)
-                    (incf i))))
-              (progn
-                (setq fvwm-keywords-map (list))
-                (let ((i 0) (cur))
-                  (while (< i (length fvwm-keywords-all))
-                    (mapc (lambda (e)
-                              (add-to-list 'fvwm-keywords-map (cons e nil)))
-                            fvwm-keywords-all)
-                    (incf i)))))))
-
-      (defun fvwm-complete-keyword ()
-        "Complete the Fvwm keywords before point by comparing it
-against the known Fvwm keywords."
-        ;; This function is largely based on lisp-complete-symbol from GNU Emacs' lisp.el
-        (interactive)
-        
-        (when (and
-               (not fvwm-keywords-map)
-               (fboundp 'fvwm-generate-hashmap)) ;should always be defined when we get here; silence byte compiler with explicit check
-          (fvwm-generate-hashmap))
-        
-        (let ((window (get-buffer-window "*Completions*")))
-          (if (and (eq last-command this-command)
-                   window (window-live-p window) (window-buffer window)
-                   (buffer-name (window-buffer window)))
-              ;; If there's already a completion buffer open, reuse it.
-              (with-current-buffer (window-buffer window)
-                (if (pos-visible-in-window-p (point-max) window)
-                    (set-window-start window (point-min))
-                    (save-selected-window
-                      (select-window window)
-                      (scroll-up))))
-
-              ;; Do completion
-              (let* ((end (point))
-                     (beg (with-syntax-table (standard-syntax-table)
-                            (save-excursion
-                              (backward-sexp 1)
-                              (while (= (char-syntax (following-char)) ?\')
-                                (forward-char 1))
-                              (point))))
-                     (pattern (buffer-substring-no-properties beg end))
-                     (completion (try-completion pattern fvwm-keywords-map)))
-                (cond ((eq completion t))
-                      ((null completion)
-                       (message "Can't find completion for \"%s\"" pattern)
-                       (ding))
-                      ((not (string= pattern completion))
-                       (delete-region beg end)
-                       (insert completion))
-                      (t
-                       (message "Making completion list...")
-                       (let ((list (all-completions pattern fvwm-keywords-map)))
-                         (setq list (sort list 'string<))
-                         (let (new)
-                           (while list
-                             (setq new (cons (if (fboundp (intern (car list)))
-                                                 (list (car list) " <f>")
-                                                 (car list))
-                                             new))
-                             (setq list (cdr list)))
-                           (setq list (nreverse new)))
-                         (with-output-to-temp-buffer "*Completions*"
-                           (display-completion-list list)))
-                       (message "Making completion list...%s" "done")))))))))
+             (point-min) ptt))))))
 
 ;; -------------------------
 ;; |    Timestamp file     |
@@ -918,19 +836,7 @@ Entry to this mode calls the value of `fvwm-mode-hook'"
        '(fvwm-font-lock-keywords nil fvwm-keywords-force-case))
 
   (when fvwm-enable-last-updated-timestamp
-    (add-hook 'before-save-hook 'fvwm-timestamp-file))
-  
-  ;; XEmacs needs this, otherwise the menu isn't displayed.
-  (when (featurep 'xemacs)
-    (easy-menu-add fvwm-menu fvwm-mode-map))
-
-  ;; Create the completions database when the mode is first loaded on XEmacs
-  ;; (or any other Emacs not providing pcomplete)
-  (when (and
-         (not (featurep 'pcomplete))
-         (fboundp 'fvwm-generate-hashmap)
-         fvwm-preload-completions)
-    (fvwm-generate-hashmap)))
+    (add-hook 'before-save-hook 'fvwm-timestamp-file)))
 
 ;;;###autoload
 (dolist (pattern '("/home/[^/]*/\\.fvwm/config\\'"

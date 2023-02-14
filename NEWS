@@ -12,6 +12,7 @@ fvwm-mode NEWS
 ** added autoloads for common naming schemes for Fvwm related files
    (Jonathan Kotta)
 ** no longer using defvar for face definitions.
+** removed XEmacs support
 
 * 1.6.4 (9 Jan 2014) 
 ** fixed fvwm-execute-region to not execute one line too much 
